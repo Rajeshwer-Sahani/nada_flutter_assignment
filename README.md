@@ -61,7 +61,7 @@ lib/
 Clone the repository and navigate to the project directory:
 
 ```bash
-git clone <https://github.com/Rajeshwer-Sahani/nada_flutter_assignment>
+git clone https://github.com/Rajeshwer-Sahani/nada_flutter_assignment
 cd nada_flutter_assignment
 ```
 
