@@ -91,11 +91,14 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profiles'),
-        backgroundColor: Colors.blueAccent,
-        ),
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+      ),
       body: Column(
         children: [
           ProfileSearchBar(onChanged: _onSearchChanged),
