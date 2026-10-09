@@ -92,7 +92,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profiles')),
+      appBar: AppBar(
+        title: const Text('Profiles'),
+        backgroundColor: Colors.blueAccent,
+        ),
       body: Column(
         children: [
           ProfileSearchBar(onChanged: _onSearchChanged),
