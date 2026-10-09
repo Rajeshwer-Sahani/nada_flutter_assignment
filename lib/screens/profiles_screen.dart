@@ -10,15 +10,18 @@ import '../widgets/profile_search_bar.dart';
 import 'profile_details_screen.dart';
 
 class ProfilesScreen extends StatefulWidget {
-  const ProfilesScreen({super.key});
+  final ProfileService profileService;
+
+  const ProfilesScreen({
+    super.key,
+    this.profileService = const ProfileService(),
+  });
 
   @override
   State<ProfilesScreen> createState() => _ProfilesScreenState();
 }
 
 class _ProfilesScreenState extends State<ProfilesScreen> {
-  final ProfileService _profileService = ProfileService();
-
   List<Profile> _profiles = [];
   String _searchQuery = '';
 
@@ -38,7 +41,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     });
 
     try {
-      final profiles = await _profileService.fetchProfiles();
+      final profiles = await widget.profileService.fetchProfiles();
 
       if (!mounted) return;
 
@@ -81,9 +84,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ProfileDetailsScreen(
-          profile: profile,
-        ),
+        builder: (context) => ProfileDetailsScreen(profile: profile),
       ),
     );
   }
@@ -91,17 +92,11 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profiles'),
-      ),
+      appBar: AppBar(title: const Text('Profiles')),
       body: Column(
         children: [
-          ProfileSearchBar(
-            onChanged: _onSearchChanged,
-          ),
-          Expanded(
-            child: _buildBody(),
-          ),
+          ProfileSearchBar(onChanged: _onSearchChanged),
+          Expanded(child: _buildBody()),
         ],
       ),
     );
@@ -113,10 +108,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     }
 
     if (_errorMessage != null) {
-      return ProfileErrorState(
-        message: _errorMessage!,
-        onRetry: _loadProfiles,
-      );
+      return ProfileErrorState(message: _errorMessage!, onRetry: _loadProfiles);
     }
 
     final profiles = _filteredProfiles;
